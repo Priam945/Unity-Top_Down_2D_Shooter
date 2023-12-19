@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        //TEST MUSIQUE 
+        AudioManager.instance.PlayMusic("AVENTADOR");
         //hp bar
         currentHealth = maxHealth;
 
@@ -71,6 +73,13 @@ public class PlayerController : MonoBehaviour
         }
 
         if (collision.gameObject.CompareTag("Enemy")) {
+            TakeDamage(10);
+            healthSlider.value = currentHealth;
+
+        }
+
+        if (collision.gameObject.CompareTag("Boss"))
+        {
             TakeDamage(10);
             healthSlider.value = currentHealth;
 

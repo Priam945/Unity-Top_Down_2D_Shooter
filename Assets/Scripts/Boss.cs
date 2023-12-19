@@ -33,12 +33,30 @@ public class Boss : MonoBehaviour
     [SerializeField] private float dashCooldown = 3f;
     private bool isDashing = false;
 
+    [Header("Boss Shield Settings")]
+    public GameObject shieldObject;
+    [SerializeField] private float shieldDuration = 20f;
+    [SerializeField] private float shieldCooldown = 5f;
+    private bool isShielding = false;
+
+    [Header("Boss Evade atk Settings")]
+    [SerializeField] private float evadeAtkDuration = 0.5f;
+    [SerializeField] private float evadeAtkCooldown = 5f;
+    public float evadeDistance = 5f;
+    private bool isEvadingAtk = false;
+    private int evadeDirection = 1;
+
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player");
         gunScript = gunBoss.GetComponent<GunBoss>();
+
+        if (shieldObject != null)
+        {
+            shieldObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -87,6 +105,21 @@ public class Boss : MonoBehaviour
             StartCoroutine(PerformDash());
         }
     }
+    public void Shield()
+    {
+        if (!isShielding)
+        {
+            StartCoroutine(PerformShield());
+        }
+    }
+
+    public void EvadeAtk()
+    {
+        if (!isEvadingAtk)
+        {
+            StartCoroutine(PerformEvadeAtk());
+        }
+    }
 
     public void Chase() {
         Vector3 playerPosition = player.transform.position;
@@ -112,6 +145,78 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(dashCooldown);
 
         isDashing = false;
+    }
+
+    private IEnumerator PerformShield()
+    {
+        if (!isShielding)
+        {
+            isShielding = true;
+
+            if (shieldObject != null)
+            {
+                shieldObject.SetActive(true);
+            }
+
+            // Active le bouclier pendant la durée spécifiée
+            float elapsed = 0f;
+            while (elapsed < shieldDuration)
+            {
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            // Désactive le bouclier visuel
+            if (shieldObject != null)
+            {
+                shieldObject.SetActive(false);
+            }
+
+            // Désactive le bouclier
+            isShielding = false;
+
+            // Attend le temps de recharge avant de pouvoir réactiver le bouclier
+            yield return new WaitForSeconds(shieldCooldown);
+        }
+        else
+        {
+            // Le bouclier est déjà en cours d'utilisation
+            Debug.Log("Le bouclier est déjà actif.");
+        }
+    }
+    public void ActivateShield()
+    {
+        StartCoroutine(PerformShield());
+    }
+
+    private IEnumerator PerformEvadeAtk()
+    {
+        while (true)
+        {
+            if (!isEvadingAtk)
+            {
+                Vector3 initialPosition = transform.position;
+                float direction = evadeDirection;
+                evadeDirection *= -1;
+
+                float elapsedTime = 0f;
+                isEvadingAtk = true;
+
+                while (elapsedTime < evadeAtkDuration)
+                {
+                    transform.position = Vector3.Lerp(initialPosition, initialPosition + transform.right * direction * evadeDistance, elapsedTime / evadeAtkDuration);
+                    elapsedTime += Time.deltaTime;
+                    yield return null;
+                }
+
+                transform.position = initialPosition;
+                yield return new WaitForSeconds(evadeAtkCooldown);
+
+                isEvadingAtk = false;
+            }
+
+            yield return null;
+        }
     }
 
     private IEnumerator DamageCooldown() {

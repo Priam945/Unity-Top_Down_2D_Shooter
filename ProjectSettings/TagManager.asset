@@ -13,6 +13,7 @@ TagManager:
   - ShortRange
   - Door
   - Boss
+  - Wall
   layers:
   - Default
   - TransparentFX

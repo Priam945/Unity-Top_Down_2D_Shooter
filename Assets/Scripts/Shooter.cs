@@ -9,7 +9,7 @@ public class Shooter : MonoBehaviour
     [Header("Shooter Settings")]
     [SerializeField] private float maxHealth = 500f;
     [SerializeField] private float currentHealth;
-    [SerializeField] private float longRangeDamage = 5f;
+    [SerializeField] private float longRangeDamage = 50f;
     [SerializeField] private GameObject zone2;
     [SerializeField] private GameObject gunShooter;
     private GameObject player;
@@ -20,8 +20,8 @@ public class Shooter : MonoBehaviour
     private bool canDealDamage = true;
     private float damageCooldown = 1f;
 
-    [SerializeField] private float autoShootInterval = 5f; 
-    private float autoShootTimer = 0f;
+    [SerializeField] private float autoShootInterval = 4f; 
+    private float autoShootTimer = 5f;
 
 
     public float GetHP() => currentHealth;
@@ -33,6 +33,7 @@ public class Shooter : MonoBehaviour
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player");
         gunScript = gunShooter.GetComponent<GunShooter>();
+
     }
 
     // Update is called once per frame

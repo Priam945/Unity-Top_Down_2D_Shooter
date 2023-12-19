@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4109d6f2df818304ca8e0dd5bf9026ea, type: 3}
-  m_Name: EvadeAttack
+  m_Name: Evade
   m_EditorClassIdentifier: 
   state: 0
   started: 0
@@ -110,6 +110,7 @@ MonoBehaviour:
     moveToPosition: {x: 0, y: 0, z: 0}
   description: 
   drawGizmos: 0
+  evadeRange: 10
 --- !u!114 &-5590236736348986369
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,7 +132,7 @@ MonoBehaviour:
   description: "Choix al\xE9atoire de ce que va faire le boss"
   drawGizmos: 0
   children:
-  - {fileID: 7053067878599815414}
+  - {fileID: 7707445241804314995}
 --- !u!114 &-4503418239503343744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,7 +379,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4109d6f2df818304ca8e0dd5bf9026ea, type: 3}
-  m_Name: EvadeAttack
+  m_Name: Evade
   m_EditorClassIdentifier: 
   state: 0
   started: 0
@@ -388,6 +389,7 @@ MonoBehaviour:
     moveToPosition: {x: 0, y: 0, z: 0}
   description: 
   drawGizmos: 0
+  evadeRange: 10
 --- !u!114 &-82792636227253115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547,6 +549,7 @@ MonoBehaviour:
     moveToPosition: {x: 0, y: 0, z: 0}
   description: 
   drawGizmos: 0
+  detectionRange: 5
 --- !u!114 &3000570081886819197
 MonoBehaviour:
   m_ObjectHideFlags: 0
