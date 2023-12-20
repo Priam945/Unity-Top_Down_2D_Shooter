@@ -13,6 +13,7 @@ TagManager:
   - ShortRange
   - Door
   - Boss
+  - Companion
   layers:
   - Default
   - TransparentFX

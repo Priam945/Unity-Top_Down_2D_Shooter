@@ -6,11 +6,12 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Player Settings")]
     [SerializeField] private float maxHealth = 100;
-    [SerializeField] private float currentHealth;
+    [SerializeField] private float currentHealth;    
     [SerializeField] private float maxStamina = 100;
     [SerializeField] private float currentStamina;
     [SerializeField] private Slider healthSlider;
     [SerializeField] private Slider staminaSlider;
+    public float regenRate = 0f;
     private Boss boss;
 
     [Header("Player Controls Settings")]
@@ -19,14 +20,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRigidbody;
 
     void Start()
-    {
-        //hp bar
-        currentHealth = maxHealth;
-
-        // stamina bar
+    {       
+        currentHealth = maxHealth;       
         currentStamina = maxStamina;
         Cursor.visible = false;
-
         boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss>();
         playerRigidbody = GetComponent<Rigidbody>();
     }
@@ -50,14 +47,26 @@ public class PlayerController : MonoBehaviour
         {
             GainStamina(5);
         }
-
-        //Death
+       
         if (currentHealth <= 0)
         {
             Die();
         }
 
         staminaSlider.value = currentStamina;
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            TakeDamage(50);
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Heal(50);
+        }      
+        healthSlider.value = currentHealth;
+        //Debug.Log(currentHealth);
+
+
     }
 
     void RotateTowardsMouseCursor()
@@ -86,15 +95,22 @@ public class PlayerController : MonoBehaviour
             }
             healthSlider.value = currentHealth;
         }
-
         if (collision.gameObject.CompareTag("Enemy")) {
             TakeDamage(10);
             healthSlider.value = currentHealth;
-
-        }
-
+        }        
         if (currentHealth <= 0) {
             Die();
+        }       
+    }
+
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Companion"))
+        {
+            currentHealth += regenRate * (Time.deltaTime / 50);
+            currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+            Debug.Log("Heal");
         }
     }
 
@@ -117,8 +133,7 @@ public class PlayerController : MonoBehaviour
     
     public void TakeDamage(float damageAmount)
     {
-        currentHealth -= damageAmount;
-        healthSlider.value = currentHealth;
+        currentHealth -= damageAmount;        
 
         if (currentHealth <= 0) {
             Die();
@@ -151,5 +166,9 @@ public class PlayerController : MonoBehaviour
         {
             currentHealth = 100;
         }
+
     }
+
+
+
 }
