@@ -5,7 +5,7 @@ using TheKiwiCoder;
 
 public class Evade : ActionNode
 {
-    public float evadeRange = 10f;
+    public float evadeRange = 5f;
     protected override void OnStart()
     {
     }

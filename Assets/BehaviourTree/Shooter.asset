@@ -171,13 +171,15 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: b38cc8fa497ba354b9f1b5b95f5f9456
-  position: {x: 603.32367, y: 390.64612}
+  position: {x: 577.3539, y: 364.0835}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
   description: 
   drawGizmos: 0
   children:
   - {fileID: -445060476968493803}
+  - {fileID: -9162655610900185189}
+  - {fileID: 5388346681966489413}
 --- !u!114 &4851764486373017319
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -41,10 +41,11 @@ public class Boss : MonoBehaviour
 
     [Header("Boss Evade atk Settings")]
     [SerializeField] private float evadeAtkDuration = 0.5f;
-    [SerializeField] private float evadeAtkCooldown = 5f;
+    [SerializeField] private float evadeAtkCooldown = 10f;
     public float evadeDistance = 5f;
     private bool isEvadingAtk = false;
-    private int evadeDirection = 1;
+
+    private Vector3 evadeDirection = Vector3.right;
 
     // Start is called before the first frame update
     void Start()
@@ -188,36 +189,56 @@ public class Boss : MonoBehaviour
     {
         StartCoroutine(PerformShield());
     }
-
     private IEnumerator PerformEvadeAtk()
     {
-        while (true)
+        if (!isEvadingAtk)
         {
-            if (!isEvadingAtk)
+            isEvadingAtk = true;
+
+            // Stocke la position de départ du boss
+            Vector3 startPosition = transform.position;
+
+            // Calcule la direction du joueur par rapport à la position actuelle du boss
+            Vector3 playerDirection = player.transform.position - transform.position;
+            playerDirection.y = 0f; // Ignore la composante verticale (peut être ajusté selon votre besoin)
+            playerDirection.Normalize();
+
+            // Calcule la direction d'évasion
+            Vector3 evadeDirection = Quaternion.Euler(0, 90, 0) * playerDirection; // Tourne de 90 degrés pour obtenir une direction perpendiculaire
+
+            // Calcule la position cible pour l'évasion
+            Vector3 evadeDestination = startPosition + evadeDirection * evadeDistance;
+
+            // Initialise le temps écoulé
+            float elapsed = 0f;
+
+            while (elapsed < evadeAtkDuration)
             {
-                Vector3 initialPosition = transform.position;
-                float direction = evadeDirection;
-                evadeDirection *= -1;
+                // Déplace le boss le long de la direction d'évasion
+                transform.position += evadeDirection * moveSpeed * Time.deltaTime;
 
-                float elapsedTime = 0f;
-                isEvadingAtk = true;
+                // Incrémente le temps écoulé
+                elapsed += Time.deltaTime;
 
-                while (elapsedTime < evadeAtkDuration)
-                {
-                    transform.position = Vector3.Lerp(initialPosition, initialPosition + transform.right * direction * evadeDistance, elapsedTime / evadeAtkDuration);
-                    elapsedTime += Time.deltaTime;
-                    yield return null;
-                }
-
-                transform.position = initialPosition;
-                yield return new WaitForSeconds(evadeAtkCooldown);
-
-                isEvadingAtk = false;
+                // Attend la prochaine frame
+                yield return null;
             }
 
-            yield return null;
+            // Attend le temps de recharge avant de pouvoir réutiliser l'évasion
+            yield return new WaitForSeconds(evadeAtkCooldown);
+
+            // Termine l'évasion
+            isEvadingAtk = false;
+        }
+        else
+        {
+            // L'évasion est déjà en cours d'utilisation
+            Debug.Log("L'évasion est déjà en cours.");
         }
     }
+
+
+
 
     private IEnumerator DamageCooldown() {
         canDealDamage = false;
