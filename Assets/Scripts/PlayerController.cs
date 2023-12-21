@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Player Settings")]
     [SerializeField] private float maxHealth = 100;
-    [SerializeField] private float currentHealth;    
+    [SerializeField] private float currentHealth;
     [SerializeField] private float maxStamina = 100;
     [SerializeField] private float currentStamina;
     [SerializeField] private Slider healthSlider;
@@ -20,8 +20,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRigidbody;
 
     void Start()
-    {       
-        currentHealth = maxHealth;       
+    {
+        currentHealth = maxHealth;
         currentStamina = maxStamina;
         Cursor.visible = false;
         boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss>();
@@ -33,13 +33,15 @@ public class PlayerController : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 moveDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
-        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);             
+        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
         RotateTowardsMouseCursor();
         if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && currentStamina > 0)
         {
             moveSpeed = 15f;
             UseStamina(10);
-        } else {
+        }
+        else
+        {
             moveSpeed = 7f;
         }
 
@@ -47,7 +49,7 @@ public class PlayerController : MonoBehaviour
         {
             GainStamina(5);
         }
-       
+
         if (currentHealth <= 0)
         {
             Die();
@@ -62,7 +64,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             Heal(50);
-        }      
+        }
         healthSlider.value = currentHealth;
         //Debug.Log(currentHealth);
 
@@ -85,23 +87,30 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.CompareTag("Bullet")) {
-            if (boss.IsAttackSPE()) {
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            if (boss.IsAttackSPE())
+            {
                 TakeDamage(boss.GetLongRangeDamageSPE());
                 boss.SetIsAttackSPE(false);
-            } else {
+            }
+            else
+            {
                 TakeDamage(boss.GetLongRangeDamage());
             }
             healthSlider.value = currentHealth;
         }
-        if (collision.gameObject.CompareTag("Enemy")) {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
             TakeDamage(10);
             healthSlider.value = currentHealth;
-        }        
-        if (currentHealth <= 0) {
+        }
+        if (currentHealth <= 0)
+        {
             Die();
-        }       
+        }
     }
 
     void OnCollisionStay(Collision collision)
@@ -116,12 +125,13 @@ public class PlayerController : MonoBehaviour
 
     public float GetCurrentHealth() => currentHealth;
 
-    void Die() {
+    void Die()
+    {
         Destroy(gameObject);
     }
 
     void RotateWithMouse(float mouseX)
-    {       
+    {
         float rotationAmount = mouseX * rotationSpeed * Time.deltaTime;
         transform.Rotate(Vector3.up, rotationAmount);
     }
@@ -130,12 +140,13 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.visible = !hasFocus;
     }
-    
+
     public void TakeDamage(float damageAmount)
     {
-        currentHealth -= damageAmount;        
+        currentHealth -= damageAmount;
 
-        if (currentHealth <= 0) {
+        if (currentHealth <= 0)
+        {
             Die();
         }
     }
