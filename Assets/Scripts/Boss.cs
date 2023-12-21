@@ -33,12 +33,16 @@ public class Boss : MonoBehaviour
     [SerializeField] private float dashCooldown = 3f;
     private bool isDashing = false;
 
+    EndMenu endMenu;
+    CanvasGroup endMenuGroup;
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player");
         gunScript = gunBoss.GetComponent<GunBoss>();
+        endMenu = GetComponent<EndMenu>();
+        endMenuGroup = GameObject.Find("EndCanvas").GetComponent<CanvasGroup>();
     }
 
     // Update is called once per frame
@@ -50,6 +54,9 @@ public class Boss : MonoBehaviour
     void Die()
     {
         Destroy(gameObject);
+        endMenuGroup.alpha = 1f;
+        endMenuGroup.interactable = true;
+        endMenu.EndMenuButton();
     }
 
     public float GetHP() => currentHealth;

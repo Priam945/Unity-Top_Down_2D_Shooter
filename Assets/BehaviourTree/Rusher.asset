@@ -56,9 +56,9 @@ MonoBehaviour:
   treeState: 0
   nodes:
   - {fileID: 8291238266644594942}
-  - {fileID: 4477984945049776491}
-  - {fileID: -530458139378501058}
-  - {fileID: -3203466708045857205}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &4477984945049776491

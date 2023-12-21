@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+using UnityEngine.UI;
+
 
 public class Shooter : MonoBehaviour
 {
@@ -9,7 +11,7 @@ public class Shooter : MonoBehaviour
     [Header("Shooter Settings")]
     [SerializeField] private float maxHealth = 500f;
     [SerializeField] private float currentHealth;
-    [SerializeField] private float longRangeDamage = 5f;
+    [SerializeField] private float longRangeDamage = 50f;
     [SerializeField] private GameObject zone2;
     [SerializeField] private GameObject gunShooter;
     private GameObject player;
@@ -23,7 +25,7 @@ public class Shooter : MonoBehaviour
     [SerializeField] private float autoShootInterval = 5f; 
     private float autoShootTimer = 0f;
 
-
+    [SerializeField] private Slider healthSlider;
     public float GetHP() => currentHealth;
     public float GetMaxHP() => maxHealth;
     public float GetLongRangeDamage() => longRangeDamage;
@@ -43,6 +45,10 @@ public class Shooter : MonoBehaviour
         {
             ShootAutomatically();
             autoShootTimer = 0f;
+        }
+        if (currentHealth <= 0)
+        {
+            Die();
         }
         Chase();
     }
@@ -85,8 +91,7 @@ public class Shooter : MonoBehaviour
     public void Chase()
     {
         Vector3 playerPosition = player.transform.position;
-        Vector3 chaseDirection = (playerPosition - transform.position).normalized;
-        transform.position += chaseDirection * moveSpeed * Time.deltaTime;
+        transform.LookAt(playerPosition);
     }
 
     private IEnumerator DamageCooldown()

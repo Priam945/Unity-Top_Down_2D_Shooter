@@ -18,7 +18,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float rotationSpeed = 200f;
     private Rigidbody playerRigidbody;
-
+    EndMenu endMenu;
+    CanvasGroup endMenuGroup;
     void Start()
     {
         currentHealth = maxHealth;
@@ -26,6 +27,9 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
         boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss>();
         playerRigidbody = GetComponent<Rigidbody>();
+
+        endMenu = GetComponent<EndMenu>();
+        endMenuGroup = GameObject.Find("EndCanvas").GetComponent<CanvasGroup>();
     }
 
     void Update()
@@ -52,6 +56,7 @@ public class PlayerController : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            currentHealth = 0;
             Die();
         }
 
@@ -128,6 +133,9 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
         Destroy(gameObject);
+        endMenuGroup.interactable = true;
+        endMenuGroup.alpha = 1f;
+        endMenu.EndMenuButton();
     }
 
     void RotateWithMouse(float mouseX)
