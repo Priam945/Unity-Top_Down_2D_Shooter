@@ -9,7 +9,6 @@ public class GunShooter : MonoBehaviour
     public LineRenderer aimLineRenderer;
     private float maxAimRange = 20f;
     private Transform playerTransform;
-    private bool isAimLineVisible = true;
 
     private void Start()
     {
@@ -24,9 +23,11 @@ public class GunShooter : MonoBehaviour
 
     private void RotateTowardsPlayer()
     {
-        Vector3 directionToPlayer = (playerTransform.position - bulletSpawnPoint.position).normalized;
-        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+        if (playerTransform) {
+            Vector3 directionToPlayer = (playerTransform.position - bulletSpawnPoint.position).normalized;
+            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+        }
     }
 
     private void UpdateAimLineRenderer()
@@ -69,11 +70,13 @@ public class GunShooter : MonoBehaviour
             return;
         }
 
-        Vector3 directionToPlayer = (playerTransform.position - bulletSpawnPoint.position).normalized;
-        bulletSpawnPoint.rotation = Quaternion.LookRotation(directionToPlayer);
-        var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        bullet.GetComponent<Rigidbody>().velocity = directionToPlayer * bulletSpeed;
-        var particle = Instantiate(particlePrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        Destroy(particle, 2f);
+        if (playerTransform) {
+            Vector3 directionToPlayer = (playerTransform.position - bulletSpawnPoint.position).normalized;
+            bulletSpawnPoint.rotation = Quaternion.LookRotation(directionToPlayer);
+            var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            bullet.GetComponent<Rigidbody>().velocity = directionToPlayer * bulletSpeed;
+            var particle = Instantiate(particlePrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            Destroy(particle, 2f);
+        }
     }
 }

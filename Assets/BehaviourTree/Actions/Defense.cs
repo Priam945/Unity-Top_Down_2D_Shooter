@@ -12,6 +12,7 @@ public class Defense : ActionNode
     }
 
     protected override State OnUpdate() {
+        context.boss.Shield();
         return State.Success;
     }
 }

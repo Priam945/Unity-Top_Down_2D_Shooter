@@ -22,6 +22,7 @@ namespace TheKiwiCoder {
 
         // Add other game specific systems here
         public Boss boss;
+        public Shooter shooter;
 
         public static Context CreateFromGameObject(GameObject gameObject) {
             // Fetch all commonly used components
@@ -38,6 +39,7 @@ namespace TheKiwiCoder {
             
             // Add whatever else you need here...
             context.boss = gameObject.GetComponent<Boss>();
+            context.shooter = gameObject.GetComponent<Shooter>();
 
             return context;
         }

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class Gun : MonoBehaviour {
     public Transform bulletSpawnPoint;
@@ -14,9 +15,17 @@ public class Gun : MonoBehaviour {
     private float timer;
     private bool isReloading;
 
+    public TMP_Text ammoText;
+
     private void Start() {
         currentAmmo = maxAmmo;
         isReloading = false;
+
+        if (ammoText == null) {
+            Debug.LogError("TextMeshPro Text component is not assigned!");
+        } else {
+            UpdateAmmoUI();
+        }
     }
     private void Update() {
         timer += Time.deltaTime;
@@ -34,6 +43,10 @@ public class Gun : MonoBehaviour {
         }
     }
 
+    private void UpdateAmmoUI() {
+        ammoText.text = "Ammo: " + currentAmmo + " / " + maxAmmo;
+    }
+
     public void Shoot() {
         if (currentAmmo > 0) {
             var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
@@ -42,6 +55,7 @@ public class Gun : MonoBehaviour {
             Destroy(particle, 2f);
 
             currentAmmo--;
+            UpdateAmmoUI();
         } else {
             StartCoroutine(Reload());
         }
@@ -57,6 +71,7 @@ public class Gun : MonoBehaviour {
 
         currentAmmo = maxAmmo;
         isReloading = false;
+        UpdateAmmoUI();
         Debug.Log("Reload complete. Current ammo: " + currentAmmo);
     }
 }

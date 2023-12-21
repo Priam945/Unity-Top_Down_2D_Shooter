@@ -5,9 +5,9 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Settings")]
-    [SerializeField] private float maxHealth = 100;
+    [SerializeField] private float maxHealth;
     [SerializeField] private float currentHealth;
-    [SerializeField] private float maxStamina = 100;
+    [SerializeField] private float maxStamina;
     [SerializeField] private float currentStamina;
     [SerializeField] private Slider healthSlider;
     [SerializeField] private Slider staminaSlider;
@@ -15,11 +15,12 @@ public class PlayerController : MonoBehaviour
     private Boss boss;
 
     [Header("Player Controls Settings")]
-    [SerializeField] private float moveSpeed = 7f;
-    [SerializeField] private float rotationSpeed = 200f;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float rotationSpeed;
     private Rigidbody playerRigidbody;
     EndMenu endMenu;
     CanvasGroup endMenuGroup;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -37,12 +38,12 @@ public class PlayerController : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 moveDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
-        transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        playerRigidbody.MovePosition(transform.position + moveDirection * moveSpeed * Time.deltaTime);
         RotateTowardsMouseCursor();
         if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && currentStamina > 0)
         {
-            moveSpeed = 15f;
-            UseStamina(10);
+            moveSpeed = 10f;
+            UseStamina(30);
         }
         else
         {
@@ -96,21 +97,13 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            if (boss.IsAttackSPE())
-            {
-                TakeDamage(boss.GetLongRangeDamageSPE());
-                boss.SetIsAttackSPE(false);
-            }
-            else
-            {
-                TakeDamage(boss.GetLongRangeDamage());
-            }
-            healthSlider.value = currentHealth;
+            float damageAmount = boss.IsAttackSPE() ? boss.GetLongRangeDamageSPE() : boss.GetLongRangeDamage();
+            TakeDamage(damageAmount);
+            boss.SetIsAttackSPE(false);
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
             TakeDamage(10);
-            healthSlider.value = currentHealth;
         }
         if (currentHealth <= 0)
         {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TheKiwiCoder;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.UI;
@@ -16,9 +17,7 @@ public class Shooter : MonoBehaviour
     [SerializeField] private GameObject gunShooter;
     private GameObject player;
     private GunShooter gunScript;
-
-    [Header("Shooter Controls Settings")]
-    [SerializeField] private float moveSpeed = 4f;
+    private PlayerController playerScript;
     private bool canDealDamage = true;
     private float damageCooldown = 1f;
 
@@ -26,15 +25,13 @@ public class Shooter : MonoBehaviour
     private float autoShootTimer = 0f;
 
     [SerializeField] private Slider healthSlider;
-    public float GetHP() => currentHealth;
-    public float GetMaxHP() => maxHealth;
-    public float GetLongRangeDamage() => longRangeDamage;
-    public bool IsInLongRange() => zone2.GetComponent<LongRange>().IsInLongRange();
+    
     void Start()
     {
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player");
         gunScript = gunShooter.GetComponent<GunShooter>();
+        playerScript = player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -52,6 +49,11 @@ public class Shooter : MonoBehaviour
         }
         Chase();
     }
+    public float GetHP() => currentHealth;
+    public float GetMaxHP() => maxHealth;
+    public float GetLongRangeDamage() => longRangeDamage;
+    public bool IsInLongRange() => zone2.GetComponent<LongRange>().IsInLongRange();
+    public PlayerController GetPlayerScript() => playerScript;
 
     private void ShootAutomatically()
     {
@@ -74,6 +76,7 @@ public class Shooter : MonoBehaviour
         }
         if (currentHealth <= 0)
         {
+            GetComponent<BehaviourTreeRunner>().tree.Update();
             Die();
         }
     }
