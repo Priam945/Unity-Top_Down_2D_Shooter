@@ -21,22 +21,26 @@ public class GunShooter : MonoBehaviour
 
     private void RotateTowardsPlayer()
     {
-        Vector3 directionToPlayer = (playerTransform.position - bulletSpawnPoint.position).normalized;
-        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+        if (playerTransform) {
+            Vector3 directionToPlayer = (playerTransform.position - bulletSpawnPoint.position).normalized;
+            Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
 
-        Debug.DrawRay(bulletSpawnPoint.position, directionToPlayer * 10f, Color.red); 
+            Debug.DrawRay(bulletSpawnPoint.position, directionToPlayer * 10f, Color.red);
+        }
     }
 
 
 
     public void Shoot()
     {
-        Vector3 directionToPlayer = (playerTransform.position - bulletSpawnPoint.position).normalized;
-        bulletSpawnPoint.rotation = Quaternion.LookRotation(directionToPlayer);
-        var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        bullet.GetComponent<Rigidbody>().velocity = directionToPlayer * bulletSpeed;
-        var particle = Instantiate(particlePrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
-        Destroy(particle, 2f);
+        if (playerTransform) {
+            Vector3 directionToPlayer = (playerTransform.position - bulletSpawnPoint.position).normalized;
+            bulletSpawnPoint.rotation = Quaternion.LookRotation(directionToPlayer);
+            var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            bullet.GetComponent<Rigidbody>().velocity = directionToPlayer * bulletSpeed;
+            var particle = Instantiate(particlePrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+            Destroy(particle, 2f);
+        }
     }
 }

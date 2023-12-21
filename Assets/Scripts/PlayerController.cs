@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [Header("Player Controls Settings")]
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float rotationSpeed = 200f;
+    private Rigidbody playerRigidbody;
 
     void Start()
     {
@@ -27,6 +28,7 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
 
         boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss>();
+        playerRigidbody = GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -34,9 +36,9 @@ public class PlayerController : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         Vector3 moveDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
-        transform.Translate(moveDirection * moveSpeed * Time.deltaTime, Space.World);
-        float mouseX = Input.GetAxis("Mouse X");
-        RotateWithMouse(mouseX);
+        //transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+        playerRigidbody.MovePosition(transform.position + moveDirection * moveSpeed * Time.deltaTime);
+        RotateTowardsMouseCursor();
         if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && currentStamina > 0)
         {
             moveSpeed = 15f;
@@ -59,21 +61,28 @@ public class PlayerController : MonoBehaviour
         staminaSlider.value = currentStamina;
     }
 
+    void RotateTowardsMouseCursor() {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit)) {
+            Vector3 mousePosition = hit.point;
+            Vector3 lookDirection = mousePosition - transform.position;
+            lookDirection.y = 0f;
+            Quaternion rotation = Quaternion.LookRotation(lookDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+        }
+    }
+
     private void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.CompareTag("Bullet")) {
-            if (boss.IsAttackSPE()) {
-                TakeDamage(boss.GetLongRangeDamageSPE());
-                boss.SetIsAttackSPE(false);
-            } else {
-                TakeDamage(boss.GetLongRangeDamage());
-            }
-            healthSlider.value = currentHealth;
+            float damageAmount = boss.IsAttackSPE() ? boss.GetLongRangeDamageSPE() : boss.GetLongRangeDamage();
+            TakeDamage(damageAmount);
+            boss.SetIsAttackSPE(false);
         }
 
         if (collision.gameObject.CompareTag("Enemy")) {
             TakeDamage(10);
-            healthSlider.value = currentHealth;
-
         }
 
         if (currentHealth <= 0) {

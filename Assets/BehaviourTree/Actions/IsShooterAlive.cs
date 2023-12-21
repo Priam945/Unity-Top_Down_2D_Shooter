@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
+using Unity.VisualScripting;
 
-public class Heal : ActionNode
+public class IsShooterAlive : ActionNode
 {
     protected override void OnStart() {
     }
@@ -12,7 +13,10 @@ public class Heal : ActionNode
     }
 
     protected override State OnUpdate() {
-        context.boss.Heal();
-        return State.Success;
+        if (context.shooter.GetHP() > 0) {
+            return State.Success;
+        }
+
+        return State.Failure;
     }
 }

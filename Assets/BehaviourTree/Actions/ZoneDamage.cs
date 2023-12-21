@@ -12,6 +12,7 @@ public class ZoneDamage : ActionNode
     }
 
     protected override State OnUpdate() {
+        context.boss.ZoneDamage();
         return State.Success;
     }
 }
