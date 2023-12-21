@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
+using UnityEngine.UI;
 
 public class Shooter : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class Shooter : MonoBehaviour
     [SerializeField] private float autoShootInterval = 4f; 
     private float autoShootTimer = 5f;
 
+    [SerializeField] private Slider healthSlider;
 
     public float GetHP() => currentHealth;
     public float GetMaxHP() => maxHealth;
@@ -39,11 +41,16 @@ public class Shooter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Chase();
         autoShootTimer += Time.deltaTime;
         if (autoShootTimer >= autoShootInterval)
         {
             ShootAutomatically();
             autoShootTimer = 0f;
+        }
+        if (currentHealth <= 0)
+        {
+            Die();
         }
     }
 
@@ -65,6 +72,7 @@ public class Shooter : MonoBehaviour
         if (collision.gameObject.CompareTag("Bullet"))
         {
             currentHealth -= 10;
+            healthSlider.value = currentHealth;
         }
         if (currentHealth <= 0)
         {
@@ -85,9 +93,9 @@ public class Shooter : MonoBehaviour
     public void Chase()
     {
         Vector3 playerPosition = player.transform.position;
-        Vector3 chaseDirection = (playerPosition - transform.position).normalized;
-        transform.position += chaseDirection * moveSpeed * Time.deltaTime;
+        transform.LookAt(playerPosition);
     }
+
 
     private IEnumerator DamageCooldown()
     {
@@ -100,4 +108,6 @@ public class Shooter : MonoBehaviour
     {
         gunScript.Shoot();
     }
+
+
 }

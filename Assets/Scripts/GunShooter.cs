@@ -70,7 +70,7 @@ public class GunShooter : MonoBehaviour
         }
 
         AudioManager.instance.PlaySFX("twitter");
-        AudioManager.instance.SFXVolume(5);
+        AudioManager.instance.SFXVolume(1);
         Vector3 directionToPlayer = (playerTransform.position - bulletSpawnPoint.position).normalized;
         bulletSpawnPoint.rotation = Quaternion.LookRotation(directionToPlayer);
         var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);

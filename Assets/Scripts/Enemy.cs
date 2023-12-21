@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Enemy : MonoBehaviour
 {
-
     public Animator animator;
     public int maxHealth = 100;
     private int currentHealth;
@@ -15,14 +15,15 @@ public class Enemy : MonoBehaviour
     {
         currentHealth = maxHealth;
     }
-   
+
     void Update()
     {
-        if (currentHealth <= 0) {
+        if (currentHealth <= 0)
+        {
             Die();
         }
     }
-        
+
     void Die()
     {
         animator.SetTrigger("death");
@@ -32,11 +33,11 @@ public class Enemy : MonoBehaviour
 
     IEnumerator AttendrePuisFaireQuelqueChose()
     {
-        yield return new WaitForSeconds(5f);      
+        yield return new WaitForSeconds(5f);
     }
 
     void OnCollisionEnter(Collision collision)
-    {     
+    {
         if (collision.gameObject.CompareTag("Bullet"))
         {
             print(currentHealth);
