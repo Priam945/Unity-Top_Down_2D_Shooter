@@ -44,6 +44,7 @@ public class Shooter : MonoBehaviour
             ShootAutomatically();
             autoShootTimer = 0f;
         }
+        Chase();
     }
 
     private void ShootAutomatically()
