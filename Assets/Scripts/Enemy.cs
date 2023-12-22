@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-    public int maxHealth = 100;
+    public int maxHealth;
     private int currentHealth;
     [SerializeField] private Slider healthSlider;
     public float GetHP() => currentHealth;
@@ -26,11 +26,16 @@ public class Enemy : MonoBehaviour
         if (currentHealth <= 0) {
             Die();
         }
+        if (gameObject) {
+            healthSlider.value = currentHealth;
+        }
     }
     public void Chaselook()
     {
-        Vector3 playerPosition = player.transform.position;
-        transform.LookAt(playerPosition);
+        if (gameObject) {
+            Vector3 playerPosition = player.transform.position;
+            transform.LookAt(playerPosition);
+        }
     }
 
 

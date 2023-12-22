@@ -17,6 +17,7 @@ TagManager:
   - Wall
   - TP
   - RUSH
+  - HealLight
   layers:
   - Default
   - TransparentFX

@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float currentStamina;
     [SerializeField] private Slider healthSlider;
     [SerializeField] private Slider staminaSlider;
-    public float regenRate = 0f;
+    public float regenRate;
     private Boss boss;
 
     [Header("Player Controls Settings")]
@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRigidbody;
     EndMenu endMenu;
     CanvasGroup endMenuGroup;
+    public GameObject potoObject;
+    private GameObject HealLight;
+
 
     void Start()
     {
@@ -30,6 +33,9 @@ public class PlayerController : MonoBehaviour
 
         endMenu = GetComponent<EndMenu>();
         endMenuGroup = GameObject.Find("EndCanvas").GetComponent<CanvasGroup>();
+       HealLight = GameObject.FindGameObjectWithTag("HealLight");
+        
+
     }
 
     void Update()
@@ -61,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.V))
         {
-            TakeDamage(50);
+            TakeDamage(10);
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -71,6 +77,8 @@ public class PlayerController : MonoBehaviour
         //Debug.Log(currentHealth);
 
         Debug.Log(moveSpeed);
+
+      
     }
 
     void RotateTowardsMouseCursor()
@@ -110,18 +118,26 @@ public class PlayerController : MonoBehaviour
             Die();
         }
     }
-
-    void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Companion"))
+    private void OnTriggerStay(Collider other)
         {
-            currentHealth += regenRate * (Time.deltaTime / 50);
-            currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+        if (other.gameObject.CompareTag("Companion")) {
+           
             Debug.Log("Heal");
             Debug.Log("currentHealth");
+            currentHealth += regenRate * (Time.deltaTime / 50);
+            currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+            HealLight.GetComponent<Light>().intensity = 10;
+           
+            
 
+
+        } else
+        {
+            HealLight.GetComponent<Light>().intensity = 0;
         }
+
     }
+    
 
     public float GetCurrentHealth() => currentHealth;
 
