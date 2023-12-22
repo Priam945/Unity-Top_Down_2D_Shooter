@@ -12,6 +12,7 @@ public class EvadeAttack : ActionNode
     }
 
     protected override State OnUpdate() {
+        context.boss.DashOut();
         return State.Success;
     }
 }

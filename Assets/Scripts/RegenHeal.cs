@@ -30,6 +30,8 @@ public class RegenHeal : MonoBehaviour
 
             if (player != null)
             {
+                AudioManager.instance.PlaySFX("rubis");
+                AudioManager.instance.ChangeVolume(20);
                 player.Heal(heal);
                 Debug.Log("Regenheal");
                 Debug.Log(player.GetCurrentHealth());

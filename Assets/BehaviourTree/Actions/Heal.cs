@@ -12,6 +12,7 @@ public class Heal : ActionNode
     }
 
     protected override State OnUpdate() {
+        context.boss.Heal();
         return State.Success;
     }
 }

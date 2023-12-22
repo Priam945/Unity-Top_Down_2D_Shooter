@@ -15,7 +15,27 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 8c0b6a98fe0a6fb47bc0378d4de1f84d
-  position: {x: 490.7495, y: 651.5209}
+  position: {x: 300.00003, y: 600}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+  description: 
+  drawGizmos: 0
+--- !u!114 &-9104555718515949285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7aa60b3e7b87544f97863aeb51ebab8, type: 3}
+  m_Name: ChasePlayer
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 385d441b3f4aa9046acc86cdc3855822
+  position: {x: 0.8000488, y: 449.59995}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
   description: 
@@ -35,13 +55,13 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 60e0b2cc1b4a687428fce4f0eaf5b8c4
-  position: {x: 18.550564, y: 366.472}
+  position: {x: 0.8000488, y: 300}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
   description: 
   drawGizmos: 0
-  child: {fileID: 7287797908984782098}
---- !u!114 &-4100234812336040830
+  child: {fileID: -6214058558240584358}
+--- !u!114 &-8029052966431407038
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -50,17 +70,108 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 333c91566bf3510449e4521b064f7933, type: 3}
-  m_Name: IsAlive
+  m_Script: {fileID: 11500000, guid: 39691508a2d5710449ff4ff30de0dc79, type: 3}
+  m_Name: IsShooterAlive
   m_EditorClassIdentifier: 
   state: 0
   started: 0
-  guid: 022a815c93065f14b8b52593d4777709
-  position: {x: -285.4794, y: 528.9372}
+  guid: 4cbdc6497d9bbcd41b3848201104ea32
+  position: {x: -304, y: 435}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
   description: 
   drawGizmos: 0
+--- !u!114 &-7283843372755620742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb5496e8cd973748a10b3e3ef436ebd, type: 3}
+  m_Name: Repeat
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 8612da6d76b759641ae73ce1e72a7684
+  position: {x: 20.799988, y: 22.399994}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+  description: 
+  drawGizmos: 0
+  child: {fileID: -5166831162110320533}
+  restartOnSuccess: 1
+  restartOnFailure: 1
+--- !u!114 &-6214058558240584358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42d5fbca49cd4b4295e2acfdcc473f9, type: 3}
+  m_Name: IsPlayerNearShooter
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: d5044e97577fc3b4a9368a7b278f9381
+  position: {x: 8, y: 435}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+  description: 
+  drawGizmos: 0
+--- !u!114 &-5166831162110320533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7bf77e26564daa41815cba042a730aa, type: 3}
+  m_Name: InterruptSelector
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 12ba4752a1ecf8142a650cbac0b02a33
+  position: {x: 22.28678, y: 152}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+  description: 
+  drawGizmos: 0
+  children:
+  - {fileID: 2117395135492811510}
+  - {fileID: -8322842613582043644}
+  - {fileID: 2821384112698834936}
+--- !u!114 &-4893755063987358720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1186d52ee1135bd479e96de6e7f990b3, type: 3}
+  m_Name: InterruptSequencer
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 23fec695b4c27164fb5f068bcfe568e1
+  position: {x: 0.000061035156, y: 150.4}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+  description: 
+  drawGizmos: 0
+  children:
+  - {fileID: 2117395135492811510}
+  - {fileID: -8322842613582043644}
+  - {fileID: 2821384112698834936}
 --- !u!114 &-1795191751056017171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,12 +187,12 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: d019678335f9d3b4d92227b21be0d5e6
-  position: {x: 20.988073, y: -17.350142}
+  position: {x: 3, y: -165}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
   description: 
   drawGizmos: 0
-  child: {fileID: 9178416063347792557}
+  child: {fileID: 2383697081696560574}
 --- !u!114 &-445060476968493803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,14 +208,31 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 945dff37f12382f4c8a622f2bf3c0962
-  position: {x: 261.30005, y: 659.52216}
+  position: {x: 150.4, y: 748.48}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
   description: 
   drawGizmos: 0
-  moveSpeed: 4
-  desiredDistance: 10
-  retreatDistance: 10
+--- !u!114 &-242505066615357736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39691508a2d5710449ff4ff30de0dc79, type: 3}
+  m_Name: IsShooterAlive
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 689879d9b5ce1894f8c7234e595b31fb
+  position: {x: -300.8, y: 450.39996}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+  description: 
+  drawGizmos: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,18 +249,97 @@ MonoBehaviour:
   treeState: 0
   nodes:
   - {fileID: -1795191751056017171}
-  - {fileID: -4100234812336040830}
   - {fileID: 2117395135492811510}
   - {fileID: -8322842613582043644}
-  - {fileID: 7287797908984782098}
-  - {fileID: 9178416063347792557}
   - {fileID: 5388346681966489413}
   - {fileID: -445060476968493803}
   - {fileID: -9162655610900185189}
   - {fileID: 2617830280951745745}
   - {fileID: 2821384112698834936}
+  - {fileID: 0}
+  - {fileID: 4642859916827525744}
+  - {fileID: -5166831162110320533}
+  - {fileID: -7283843372755620742}
+  - {fileID: 1615837970370821799}
+  - {fileID: -4893755063987358720}
+  - {fileID: -9104555718515949285}
+  - {fileID: 2883469878253346610}
+  - {fileID: -242505066615357736}
+  - {fileID: 3603625921296116558}
+  - {fileID: 2417310896043404120}
+  - {fileID: -8029052966431407038}
+  - {fileID: -6214058558240584358}
+  - {fileID: 622704437317241485}
+  - {fileID: 2383697081696560574}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &487352634996717273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b343c9f45e98fdb459d012098ef43864, type: 3}
+  m_Name: IsShooterAlive
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: fee572596027b1f4980dc80b9955b442
+  position: {x: -284.79993, y: 526.4}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+  description: 
+  drawGizmos: 0
+--- !u!114 &622704437317241485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7bf77e26564daa41815cba042a730aa, type: 3}
+  m_Name: InterruptSelector
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 3c6ea01948156984298195e5b84dc991
+  position: {x: 28, y: 97}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+  description: 
+  drawGizmos: 0
+  children:
+  - {fileID: 2117395135492811510}
+  - {fileID: -8322842613582043644}
+  - {fileID: 2821384112698834936}
+--- !u!114 &1615837970370821799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb5496e8cd973748a10b3e3ef436ebd, type: 3}
+  m_Name: Repeat
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 4865758ce20e8134db71ef0292288066
+  position: {x: 0.79992676, y: -1.5999756}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+  description: 
+  drawGizmos: 0
+  child: {fileID: -4893755063987358720}
+  restartOnSuccess: 1
+  restartOnFailure: 0
 --- !u!114 &2117395135492811510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,12 +355,55 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: c19bfc8b4dce3204bbb338f666175c2c
-  position: {x: -284.51315, y: 371.1611}
+  position: {x: -300, y: 299.99997}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
   description: 
   drawGizmos: 0
-  child: {fileID: -4100234812336040830}
+  child: {fileID: -8029052966431407038}
+--- !u!114 &2383697081696560574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb5496e8cd973748a10b3e3ef436ebd, type: 3}
+  m_Name: Repeat
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: f16a21c9316c83549be5767f48c7ad64
+  position: {x: 2, y: -27}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+  description: 
+  drawGizmos: 0
+  child: {fileID: 622704437317241485}
+  restartOnSuccess: 1
+  restartOnFailure: 0
+--- !u!114 &2417310896043404120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39691508a2d5710449ff4ff30de0dc79, type: 3}
+  m_Name: IsShooterAlive
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: af928f61e8d8eef469f4dc9d7c7f339c
+  position: {x: -300, y: 448.8}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+  description: 
+  drawGizmos: 0
 --- !u!114 &2617830280951745745
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,7 +419,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 45a49b03cd7008541a04a19b884290c2
-  position: {x: 266, y: 534.2}
+  position: {x: 150.40005, y: 600}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
   description: 
@@ -190,15 +440,81 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: b38cc8fa497ba354b9f1b5b95f5f9456
-  position: {x: 603.32367, y: 390.64612}
+  position: {x: 284, y: 287}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
   description: 
   drawGizmos: 0
   children:
   - {fileID: 2617830280951745745}
+  - {fileID: 2617830280951745745}
+  - {fileID: 2617830280951745745}
+  - {fileID: -9162655610900185189}
+  - {fileID: -9162655610900185189}
   - {fileID: -9162655610900185189}
   - {fileID: 5388346681966489413}
+  - {fileID: 5388346681966489413}
+  - {fileID: 5388346681966489413}
+--- !u!114 &2883469878253346610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39691508a2d5710449ff4ff30de0dc79, type: 3}
+  m_Name: IsShooterAlive
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: aef4b3462e3238f4ebf5e2f1806c78f3
+  position: {x: -299.99997, y: 448.56}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+  description: 
+  drawGizmos: 0
+--- !u!114 &3603625921296116558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42d5fbca49cd4b4295e2acfdcc473f9, type: 3}
+  m_Name: IsPlayerNearShooter
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: b64948c69ffc870428561eba1da8ed1b
+  position: {x: 0, y: 449.59998}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+  description: 
+  drawGizmos: 0
+--- !u!114 &4642859916827525744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42d5fbca49cd4b4295e2acfdcc473f9, type: 3}
+  m_Name: IsPlayerNearShooter
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: c0b62c0a7bb1a7843b4960c3773c1ac7
+  position: {x: 17.600037, y: 519.2}
+  blackboard:
+    moveToPosition: {x: 0, y: 0, z: 0}
+  description: 
+  drawGizmos: 0
 --- !u!114 &5388346681966489413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,50 +530,8 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: a2f4f9235fb66dd4a891260c99d5fb3e
-  position: {x: 741.9476, y: 650.47943}
+  position: {x: 450.4, y: 600}
   blackboard:
     moveToPosition: {x: 0, y: 0, z: 0}
   description: 
   drawGizmos: 0
---- !u!114 &7287797908984782098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20a84f28eb66d264f94d43a5da043b76, type: 3}
-  m_Name: IsPlayerNear
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: 4fc1231b68fb1154fa91274846ee153c
-  position: {x: 18.86145, y: 529.8597}
-  blackboard:
-    moveToPosition: {x: 0, y: 0, z: 0}
-  description: 
-  drawGizmos: 0
---- !u!114 &9178416063347792557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 460be9e34c566ea45b9e282b1adcb028, type: 3}
-  m_Name: Selector
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: 53c1d218bf047e149801ba95901f70b1
-  position: {x: 19.837482, y: 148.12}
-  blackboard:
-    moveToPosition: {x: 0, y: 0, z: 0}
-  description: 
-  drawGizmos: 0
-  children:
-  - {fileID: 2821384112698834936}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-public class IsPlayerNear : ActionNode
+public class IsPlayerNearBoss : ActionNode
 {
     protected override void OnStart() {
     }
@@ -12,6 +12,10 @@ public class IsPlayerNear : ActionNode
     }
 
     protected override State OnUpdate() {
+        if (context.boss.GetPlayerScript().GetCurrentHealth() <= 0) {
+            return State.Failure;
+        }
+
         bool isCurrentlyInRange = context.boss.IsInLongRange();
 
         if (isCurrentlyInRange) {

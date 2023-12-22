@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class Gun : MonoBehaviour {
     public Transform bulletSpawnPoint;
@@ -14,9 +15,17 @@ public class Gun : MonoBehaviour {
     private float timer;
     private bool isReloading;
 
+    public TMP_Text ammoText;
+
     private void Start() {
         currentAmmo = maxAmmo;
         isReloading = false;
+
+        if (ammoText == null) {
+            Debug.LogError("TextMeshPro Text component is not assigned!");
+        } else {
+            UpdateAmmoUI();
+        }
     }
     private void Update() {
         timer += Time.deltaTime;
@@ -34,14 +43,21 @@ public class Gun : MonoBehaviour {
         }
     }
 
+    private void UpdateAmmoUI() {
+        ammoText.text = "Ammo: " + currentAmmo + " / " + maxAmmo;
+    }
+
     public void Shoot() {
         if (currentAmmo > 0) {
+            AudioManager.instance.ChangeVolume(5);
+            AudioManager.instance.PlaySFX("GUN");
             var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
             bullet.GetComponent<Rigidbody>().velocity = bulletSpawnPoint.forward * bulletSpeed;
             var particle = Instantiate(particlePrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
             Destroy(particle, 2f);
 
             currentAmmo--;
+            UpdateAmmoUI();
         } else {
             StartCoroutine(Reload());
         }
@@ -49,6 +65,7 @@ public class Gun : MonoBehaviour {
 
     private IEnumerator Reload() {
         isReloading = true;
+        ammoText.text = "Ammo: " + currentAmmo + " / " + maxAmmo + " reloading ...";
         Debug.Log("Reloading...");
 
         // Optional: Play a reload animation or sound
@@ -57,6 +74,7 @@ public class Gun : MonoBehaviour {
 
         currentAmmo = maxAmmo;
         isReloading = false;
+        UpdateAmmoUI();
         Debug.Log("Reload complete. Current ammo: " + currentAmmo);
     }
 }

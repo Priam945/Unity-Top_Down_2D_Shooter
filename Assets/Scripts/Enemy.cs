@@ -10,19 +10,32 @@ public class Enemy : MonoBehaviour
     public int maxHealth = 100;
     private int currentHealth;
     [SerializeField] private Slider healthSlider;
+    public float GetHP() => currentHealth;
+    public float GetMaxHP() => maxHealth;
+    private GameObject player;
+    [SerializeField] private float moveSpeed = 4f;
 
     void Start()
     {
         currentHealth = maxHealth;
+        player = GameObject.FindGameObjectWithTag("Player");
+
     }
-   
+
     void Update()
     {
+        Chaselook();
         if (currentHealth <= 0) {
             Die();
         }
     }
-        
+    public void Chaselook()
+    {
+        Vector3 playerPosition = player.transform.position;
+        transform.LookAt(playerPosition);
+    }
+
+
     void Die()
     {
         animator.SetTrigger("death");
@@ -43,6 +56,17 @@ public class Enemy : MonoBehaviour
             TakeDamage(10);
             healthSlider.value = currentHealth;
         }
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Chase()
+    {
+        Vector3 playerPosition = player.transform.position;
+        Vector3 chaseDirection = (playerPosition - transform.position).normalized;
+        transform.position += chaseDirection * moveSpeed * Time.deltaTime;
     }
 
     public void TakeDamage(int damageAmount)
