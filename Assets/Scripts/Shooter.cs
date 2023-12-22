@@ -12,7 +12,7 @@ public class Shooter : MonoBehaviour
     [Header("Shooter Settings")]
     [SerializeField] private float maxHealth = 500f;
     [SerializeField] private float currentHealth;
-    [SerializeField] private float longRangeDamage = 50f;
+    [SerializeField] private float longRangeDamage = 90f;
     [SerializeField] private GameObject zone2;
     [SerializeField] private GameObject gunShooter;
     private GameObject player;
@@ -21,7 +21,7 @@ public class Shooter : MonoBehaviour
     private bool canDealDamage = true;
     private float damageCooldown = 1f;
 
-    [SerializeField] private float autoShootInterval = 5f; 
+    [SerializeField] private float autoShootInterval = 3f; 
     private float autoShootTimer = 0f;
 
     [SerializeField] private Slider healthSlider;
@@ -37,6 +37,7 @@ public class Shooter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        healthSlider.value = currentHealth;
         autoShootTimer += Time.deltaTime;
         if (autoShootTimer >= autoShootInterval)
         {
@@ -59,7 +60,7 @@ public class Shooter : MonoBehaviour
     {
         if (IsInLongRange()) 
         {
-            Shoot(30);
+            Shoot(100);
         }
     }
 

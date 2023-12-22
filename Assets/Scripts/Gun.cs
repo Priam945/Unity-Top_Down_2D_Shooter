@@ -49,6 +49,8 @@ public class Gun : MonoBehaviour {
 
     public void Shoot() {
         if (currentAmmo > 0) {
+            AudioManager.instance.ChangeVolume(5);
+            AudioManager.instance.PlaySFX("GUN");
             var bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
             bullet.GetComponent<Rigidbody>().velocity = bulletSpawnPoint.forward * bulletSpeed;
             var particle = Instantiate(particlePrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
@@ -63,6 +65,7 @@ public class Gun : MonoBehaviour {
 
     private IEnumerator Reload() {
         isReloading = true;
+        ammoText.text = "Ammo: " + currentAmmo + " / " + maxAmmo + " reloading ...";
         Debug.Log("Reloading...");
 
         // Optional: Play a reload animation or sound

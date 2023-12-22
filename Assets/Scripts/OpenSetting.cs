@@ -9,7 +9,7 @@ public class OpenSetting : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             uiSetting.gameObject.SetActive(true);
             TogglePause();

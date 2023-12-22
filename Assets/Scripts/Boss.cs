@@ -6,6 +6,8 @@ using TheKiwiCoder;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR;
+using UnityEngine.UI;
+
 
 public class Boss : MonoBehaviour
 {
@@ -60,6 +62,7 @@ public class Boss : MonoBehaviour
 
     EndMenu endMenu;
     CanvasGroup endMenuGroup;
+    [SerializeField] private Slider healthSlider;
 
     // Start is called before the first frame update
     void Start()
@@ -79,7 +82,9 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        healthSlider.value = currentHealth;
+
+        Chaselook();
     }
 
     void Die()
@@ -261,5 +266,10 @@ public class Boss : MonoBehaviour
 
     public void Shoot() {
         gunScript.Shoot();
+    }
+    public void Chaselook()
+    {
+        Vector3 playerPosition = player.transform.position;
+        transform.LookAt(playerPosition);
     }
 }

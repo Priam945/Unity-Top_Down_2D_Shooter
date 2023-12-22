@@ -24,11 +24,18 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        Chaselook();
         if (currentHealth <= 0) {
             Die();
         }
     }
-        
+    public void Chaselook()
+    {
+        Vector3 playerPosition = player.transform.position;
+        transform.LookAt(playerPosition);
+    }
+
+
     void Die()
     {
         animator.SetTrigger("death");

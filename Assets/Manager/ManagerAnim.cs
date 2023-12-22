@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ManagerAnim : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class ManagerAnim : MonoBehaviour
     public int nbZombies = 1;  // Nombre de zombies à générer
     public int rateSpawn = 7;  // Taux d'apparition des zombies en secondes
     private float lastSpawn = 0f;  // Temps du dernier spawn de zombies
+    public int maxHealth = 100;
+    private int currentHealth;
+    [SerializeField] private Slider healthSlider;
 
     void Awake()
     {
@@ -25,6 +29,7 @@ public class ManagerAnim : MonoBehaviour
 
     void Start()
     {
+        currentHealth = maxHealth;
         if (joueur == null)
         {
             Debug.LogError("La référence au joueur est nulle. Assurez-vous de l'assigner dans l'inspecteur.");
@@ -43,6 +48,8 @@ public class ManagerAnim : MonoBehaviour
 
      void Update()
     {
+        healthSlider.value = currentHealth;
+
         // Vérification de la distance entre le manager et le joueur
         if (Vector3.Distance(transform.position, joueur.position) < rangeManager)
         {
@@ -58,8 +65,23 @@ public class ManagerAnim : MonoBehaviour
         {
             StartCoroutine(StartVulnerability());
         }
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
     }
-
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            print(currentHealth);
+            TakeDamage(10);
+        }
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
     // Méthode pour commencer l'invocation de zombies
     void StartInvocation()
     {
@@ -77,7 +99,18 @@ public class ManagerAnim : MonoBehaviour
             }
         }
     }
-
+    public void TakeDamage(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+        if (currentHealth <= 0)
+        {
+            GetComponent<CapsuleCollider>().enabled = false;
+        }
+    }
+    void Die()
+    {
+        Destroy(gameObject);
+    }
     // Méthode pour générer des zombies
     void SpawnZombies()
     {

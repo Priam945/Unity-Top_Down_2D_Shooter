@@ -43,22 +43,23 @@ public class PlayerController : MonoBehaviour
         if ((Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && currentStamina > 0)
         {
             moveSpeed = 10f;
-            UseStamina(30);
+            UseStamina(7);
         }
         else
         {
-            moveSpeed = 7f;
+            moveSpeed = 8f;
         }
 
         if (currentStamina < 100)
         {
-            GainStamina(5);
+            GainStamina(4);
         }
 
         if (currentHealth <= 0)
         {
             currentHealth = 0;
             Die();
+            AudioManager.instance.PlayMusic("Death");
         }
 
         staminaSlider.value = currentStamina;
@@ -105,6 +106,10 @@ public class PlayerController : MonoBehaviour
         {
             TakeDamage(10);
         }
+        if (collision.gameObject.CompareTag("RUSH"))
+        {
+            TakeDamage(50);
+        }
         if (currentHealth <= 0)
         {
             Die();
@@ -118,6 +123,8 @@ public class PlayerController : MonoBehaviour
             currentHealth += regenRate * (Time.deltaTime / 50);
             currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
             Debug.Log("Heal");
+            Debug.Log("currentHealth");
+
         }
     }
 
@@ -126,6 +133,7 @@ public class PlayerController : MonoBehaviour
     void Die()
     {
         Destroy(gameObject);
+        AudioManager.instance.PlayMusic("death");
         endMenuGroup.interactable = true;
         endMenuGroup.alpha = 1f;
         endMenu.EndMenuButton();
@@ -148,6 +156,7 @@ public class PlayerController : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            AudioManager.instance.PlayMusic("death");
             Die();
         }
     }
