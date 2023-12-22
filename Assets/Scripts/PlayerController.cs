@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private Boss boss;
 
     [Header("Player Controls Settings")]
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float rotationSpeed;
     private Rigidbody playerRigidbody;
     EndMenu endMenu;
@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
     {
         currentHealth = maxHealth;
         currentStamina = maxStamina;
-        Cursor.visible = false;
         boss = GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss>();
         playerRigidbody = GetComponent<Rigidbody>();
 
@@ -44,10 +43,6 @@ public class PlayerController : MonoBehaviour
         {
             moveSpeed = 10f;
             UseStamina(7);
-        }
-        else
-        {
-            moveSpeed = 8f;
         }
 
         if (currentStamina < 100)
@@ -75,7 +70,7 @@ public class PlayerController : MonoBehaviour
         healthSlider.value = currentHealth;
         //Debug.Log(currentHealth);
 
-
+        Debug.Log(moveSpeed);
     }
 
     void RotateTowardsMouseCursor()

@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
-
-    public Animator animator;
     public int maxHealth = 100;
     private int currentHealth;
     [SerializeField] private Slider healthSlider;
@@ -38,7 +36,6 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
-        animator.SetTrigger("death");
         StartCoroutine(AttendrePuisFaireQuelqueChose());
         Destroy(gameObject);
     }
@@ -72,14 +69,5 @@ public class Enemy : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
-        if (currentHealth <= 0)
-        {
-            animator.SetTrigger("death");
-            GetComponent<CapsuleCollider>().enabled = false;
-        }
-        else
-        {
-            animator.SetTrigger("damage");
-        }
     }
 }

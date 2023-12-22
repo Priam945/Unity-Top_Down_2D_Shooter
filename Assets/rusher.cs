@@ -16,7 +16,7 @@ public class rusher : MonoBehaviour
     [SerializeField] private GameObject rangeZone;
     void Start()
     {
-        
+        currentHealth = maxHealth;
     }
     void OnCollisionEnter(Collision collision)
     {

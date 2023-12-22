@@ -11,6 +11,7 @@ using UnityEngine.UI;
 
 public class Boss : MonoBehaviour
 {
+    Animator bossAnimator;
     [Header("Boss Settings")]
     [SerializeField] private float maxHealth;
     [SerializeField] private float currentHealth;
@@ -69,6 +70,7 @@ public class Boss : MonoBehaviour
     {
         currentHealth = maxHealth;
         player = GameObject.FindGameObjectWithTag("Player");
+        bossAnimator = GetComponent<Animator>();
         gunScript = gunBoss.GetComponent<GunBoss>();
         endMenu = GetComponent<EndMenu>();
         endMenuGroup = GameObject.Find("EndCanvas").GetComponent<CanvasGroup>();
@@ -89,6 +91,7 @@ public class Boss : MonoBehaviour
 
     void Die()
     {
+        bossAnimator.SetBool("death", true);
         Destroy(gameObject);
         endMenuGroup.alpha = 1f;
         endMenuGroup.interactable = true;
@@ -160,6 +163,7 @@ public class Boss : MonoBehaviour
     }
 
     public void Chase() {
+        bossAnimator.SetBool("walk", true);
         Vector3 playerPosition = player.transform.position;
         Vector3 chaseDirection = (playerPosition - transform.position).normalized;
         transform.position = Vector3.MoveTowards(transform.position, playerPosition, moveSpeed * Time.deltaTime);
